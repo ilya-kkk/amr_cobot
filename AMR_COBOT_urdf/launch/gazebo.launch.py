@@ -195,6 +195,22 @@ def generate_launch_description():
     )
     # endregion agent log
 
+    # Load SRDF for MoveIt RViz (MotionPlanning display) if available
+    srdf_candidates = [
+        '/ros2_ws/src/amr_cobot_moveit_config/config/amr_cobot.srdf',
+        '/ros2_ws/install/amr_cobot_moveit_config/share/amr_cobot_moveit_config/config/amr_cobot.srdf',
+    ]
+    robot_semantic = ''
+    for p in srdf_candidates:
+        if os.path.exists(p):
+            try:
+                with open(p, 'r', encoding='utf-8') as infp:
+                    robot_semantic = infp.read()
+                break
+            except Exception:
+                robot_semantic = ''
+                continue
+
     # Robot state publisher
     robot_state_publisher_node = Node(
         package='robot_state_publisher',
@@ -306,7 +322,10 @@ def generate_launch_description():
         arguments=['-d', rviz_config] if rviz_config else [],
         # RViz RobotModel display reads robot_description from its own node parameters in ROS2.
         # Provide it explicitly to avoid "Error document empty" when RobotModel tries to parse an unset parameter.
-        parameters=[{'robot_description': robot_desc}],
+        parameters=[
+            {'robot_description': robot_desc},
+            {'robot_description_semantic': robot_semantic},
+        ],
     )
 
     # rqt_graph (for demo visibility)
