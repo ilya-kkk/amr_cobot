@@ -18,6 +18,7 @@ RUN apt-get update && apt-get install -y \
     ros-humble-rviz2 \
     ros-humble-joy \
     ros-humble-moveit \
+    ros-humble-moveit-ros-visualization \
     ros-humble-moveit-servo \
     ros-humble-moveit-setup-assistant \
     ros-humble-rqt-graph \

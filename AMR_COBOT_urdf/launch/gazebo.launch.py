@@ -318,7 +318,6 @@ def generate_launch_description():
     )
 
     # ros2_control controllers (spawn after the robot entity exists in Gazebo)
-    arm_controller_params = PathJoinSubstitution([pkg_share, 'config', 'arm_velocity_controller.yaml'])
 
     joint_state_broadcaster_spawner = Node(
         package='controller_manager',
@@ -331,12 +330,23 @@ def generate_launch_description():
         output='screen',
     )
 
-    arm_velocity_controller_spawner = Node(
+    arm_controller_spawner = Node(
         package='controller_manager',
         executable='spawner',
-        name='arm_velocity_controller_spawner',
+        name='arm_controller_spawner',
         arguments=[
-            'arm_velocity_controller',
+            'arm_controller',
+            '--controller-manager', '/controller_manager',
+        ],
+        output='screen',
+    )
+
+    gripper_controller_spawner = Node(
+        package='controller_manager',
+        executable='spawner',
+        name='gripper_controller_spawner',
+        arguments=[
+            'gripper_controller',
             '--controller-manager', '/controller_manager',
         ],
         output='screen',
@@ -346,7 +356,8 @@ def generate_launch_description():
         period=8.0,
         actions=[
             joint_state_broadcaster_spawner,
-            arm_velocity_controller_spawner,
+            arm_controller_spawner,
+            gripper_controller_spawner,
         ],
     )
 

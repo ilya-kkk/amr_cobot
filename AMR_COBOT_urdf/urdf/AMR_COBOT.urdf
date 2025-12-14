@@ -924,8 +924,8 @@
     <limit
       lower="-0.025"
       upper="0"
-      effort="0"
-      velocity="0" />
+      effort="50"
+      velocity="0.2" />
   </joint>
   <link
     name="2_hand_Link">
@@ -982,8 +982,8 @@
     <limit
       lower="0"
       upper="0.025"
-      effort="0"
-      velocity="0" />
+      effort="50"
+      velocity="0.2" />
   </joint>
 
   <link name="tool0" />
@@ -1002,6 +1002,10 @@
         <param name="min">-2.0</param>
         <param name="max">2.0</param>
       </command_interface>
+      <command_interface name="position">
+        <param name="min">-3.1415</param>
+        <param name="max">3.1415</param>
+      </command_interface>
       <state_interface name="position" />
       <state_interface name="velocity" />
     </joint>
@@ -1009,6 +1013,10 @@
       <command_interface name="velocity">
         <param name="min">-2.0</param>
         <param name="max">2.0</param>
+      </command_interface>
+      <command_interface name="position">
+        <param name="min">-3.1415</param>
+        <param name="max">3.1415</param>
       </command_interface>
       <state_interface name="position" />
       <state_interface name="velocity" />
@@ -1018,6 +1026,10 @@
         <param name="min">-2.0</param>
         <param name="max">2.0</param>
       </command_interface>
+      <command_interface name="position">
+        <param name="min">-2.8797</param>
+        <param name="max">2.8797</param>
+      </command_interface>
       <state_interface name="position" />
       <state_interface name="velocity" />
     </joint>
@@ -1025,6 +1037,10 @@
       <command_interface name="velocity">
         <param name="min">-2.0</param>
         <param name="max">2.0</param>
+      </command_interface>
+      <command_interface name="position">
+        <param name="min">-3.1415</param>
+        <param name="max">3.1415</param>
       </command_interface>
       <state_interface name="position" />
       <state_interface name="velocity" />
@@ -1034,6 +1050,10 @@
         <param name="min">-2.0</param>
         <param name="max">2.0</param>
       </command_interface>
+      <command_interface name="position">
+        <param name="min">-3.1415</param>
+        <param name="max">3.1415</param>
+      </command_interface>
       <state_interface name="position" />
       <state_interface name="velocity" />
     </joint>
@@ -1042,8 +1062,27 @@
         <param name="min">-2.0</param>
         <param name="max">2.0</param>
       </command_interface>
+      <command_interface name="position">
+        <param name="min">-3.1415</param>
+        <param name="max">3.1415</param>
+      </command_interface>
       <state_interface name="position" />
       <state_interface name="velocity" />
+    </joint>
+
+    <joint name="1_hand_joint">
+      <command_interface name="position">
+        <param name="min">-0.025</param>
+        <param name="max">0</param>
+      </command_interface>
+      <state_interface name="position" />
+    </joint>
+    <joint name="2_hand_joint">
+      <command_interface name="position">
+        <param name="min">0</param>
+        <param name="max">0.025</param>
+      </command_interface>
+      <state_interface name="position" />
     </joint>
   </ros2_control>
 

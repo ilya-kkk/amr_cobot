@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<robot name="AMR_COBOT">
+  <group name="arm">
+    <chain base_link="robot_base_Link" tip_link="tool0"/>
+  </group>
+
+  <group name="gripper">
+    <joint name="1_hand_joint"/>
+    <joint name="2_hand_joint"/>
+  </group>
+
+  <!-- Gripper is attached to the wrist (6_Link). tool0 is used as planning tip. -->
+  <end_effector name="gripper" parent_link="6_Link" group="gripper"/>
+
+  <group_state name="open" group="gripper">
+    <joint name="1_hand_joint" value="-0.025"/>
+    <joint name="2_hand_joint" value="0.025"/>
+  </group_state>
+  <group_state name="closed" group="gripper">
+    <joint name="1_hand_joint" value="0"/>
+    <joint name="2_hand_joint" value="0"/>
+  </group_state>
+</robot>

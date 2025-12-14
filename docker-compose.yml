@@ -26,3 +26,25 @@ services:
     tty: true
     # Default: run Gazebo + controllers + RViz.
     command: /bin/bash -c "if [ -f /opt/ros/humble/setup.bash ]; then source /opt/ros/humble/setup.bash; fi && if [ -f /ros2_ws/install/setup.bash ]; then source /ros2_ws/install/setup.bash; fi && ros2 launch amr_cobot gazebo.launch.py"
+
+  moveit:
+    image: amr_cobot-moveit
+    build:
+      context: .
+      dockerfile: moveit/Dockerfile
+    container_name: amr-cobot-moveit
+    network_mode: host
+    depends_on:
+      - ros-amr-cobot
+    environment:
+      - DISPLAY=${DISPLAY:-:0}
+      - QT_X11_NO_MITSHM=1
+      - XAUTHORITY=/tmp/.docker.xauth
+      - ROS_DOMAIN_ID=${ROS_DOMAIN_ID:-0}
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - ${XAUTH_FILE:-/home/user/.docker.xauth}:/tmp/.docker.xauth:rw
+      - ./AMR_COBOT_urdf:/ros2_ws/src/amr_cobot:ro
+      - ./moveit/amr_cobot_moveit_config:/ros2_ws/src/amr_cobot_moveit_config:ro
+    stdin_open: true
+    tty: true

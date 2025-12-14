@@ -5,10 +5,13 @@ controller_manager:
     joint_state_broadcaster:
       type: joint_state_broadcaster/JointStateBroadcaster
 
-    arm_velocity_controller:
-      type: forward_command_controller/ForwardCommandController
+    arm_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
 
-arm_velocity_controller:
+    gripper_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+arm_controller:
   ros__parameters:
     joints:
       - 1_joint
@@ -17,6 +20,26 @@ arm_velocity_controller:
       - 4_joint
       - 5_joint
       - 6_joint
-    interface_name: velocity
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+      - velocity
+    state_publish_rate: 50.0
+    action_monitor_rate: 20.0
+    allow_partial_joints_goal: false
+
+gripper_controller:
+  ros__parameters:
+    joints:
+      - 1_hand_joint
+      - 2_hand_joint
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+    state_publish_rate: 50.0
+    action_monitor_rate: 20.0
+    allow_partial_joints_goal: false
 
 
