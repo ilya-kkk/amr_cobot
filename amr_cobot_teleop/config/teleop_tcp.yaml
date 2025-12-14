@@ -7,8 +7,9 @@ teleop_tcp_node:
     cmd_vel_topic: /cmd_vel
     publish_rate_hz: 50.0
     deadzone: 0.08
-    linear_scale: 1.0
-    angular_scale: 1.0
+    # We publish TwistStamped in "speed_units" for MoveIt Servo: m/s and rad/s
+    linear_scale: 0.15
+    angular_scale: 0.5
 
     # EdgeTX Radiomaster Pocket Joystick mapping (as you described):
     # axes:
@@ -30,6 +31,10 @@ teleop_tcp_node:
     invert_ly: false
     invert_rx: false
     axis_speed_scale: -1
+
+    # Requested: invert left stick axes in AMR driving mode (Mode 2)
+    amr_invert_lx: true
+    amr_invert_ly: true
 
     # deadman_button: set to your button index; -1 disables deadman (always enabled)
     deadman_button: -1

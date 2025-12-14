@@ -89,6 +89,11 @@ class TeleopTcpNode(Node):
 
         self.declare_parameter("deadman_button", -1)
 
+        # Mode-2 (AMR driving) extra inversion (applies after axis_* inversion/deadzone)
+        # This is handy when the radio/joystick feels reversed in driving mode but correct in TCP mode.
+        self.declare_parameter("amr_invert_lx", False)
+        self.declare_parameter("amr_invert_ly", False)
+
         self._mapping = self._load_mapping()
         self._last_joy: Optional[Joy] = None
         self._mode: int = 1
@@ -188,8 +193,15 @@ class TeleopTcpNode(Node):
             # Mode 2:
             #   AMR: LY->forward/back, LX->yaw
             #   TCP orientation: RX->RX, RY->RY (in tool frame)
-            cmd_out.linear.x = ly * lin_scale * speed_factor
-            cmd_out.angular.z = lx * ang_scale * speed_factor
+            amr_lx = lx
+            amr_ly = ly
+            if bool(self.get_parameter("amr_invert_lx").value):
+                amr_lx *= -1.0
+            if bool(self.get_parameter("amr_invert_ly").value):
+                amr_ly *= -1.0
+
+            cmd_out.linear.x = amr_ly * lin_scale * speed_factor
+            cmd_out.angular.z = amr_lx * ang_scale * speed_factor
 
             twist_out.twist.angular.x = rx * ang_scale * speed_factor
             twist_out.twist.angular.y = ry * ang_scale * speed_factor

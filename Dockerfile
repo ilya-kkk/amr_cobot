@@ -33,7 +33,7 @@ WORKDIR /ros2_ws
 
 # Копирование пакетов в workspace
 COPY AMR_COBOT_urdf /ros2_ws/src/amr_cobot
-COPY amr_cobot_moveit_config /ros2_ws/src/amr_cobot_moveit_config
+# COPY amr_cobot_moveit_config /ros2_ws/src/amr_cobot_moveit_config
 COPY amr_cobot_teleop /ros2_ws/src/amr_cobot_teleop
 
 # Установка зависимостей пакета

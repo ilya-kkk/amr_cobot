@@ -27,4 +27,4 @@ services:
     stdin_open: true
     tty: true
     # Default: run the full demo stack (Gazebo + controllers + MoveIt Servo + Joy + TCP teleop).
-    command: /bin/bash -c "if [ -f /opt/ros/humble/setup.bash ]; then source /opt/ros/humble/setup.bash; fi && if [ -f /ros2_ws/install/setup.bash ]; then source /ros2_ws/install/setup.bash; fi && ros2 launch amr_cobot_teleop demo.launch.py"
+    command: /bin/bash -c "if [ -f /opt/ros/humble/setup.bash ]; then source /opt/ros/humble/setup.bash; fi && if [ -f /ros2_ws/install/setup.bash ]; then source /ros2_ws/install/setup.bash; fi && ros2 launch amr_cobot gazebo.launch.py"
