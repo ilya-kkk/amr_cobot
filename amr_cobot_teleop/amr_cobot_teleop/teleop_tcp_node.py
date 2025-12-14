@@ -188,8 +188,8 @@ class TeleopTcpNode(Node):
             # Mode 2:
             #   AMR: LY->forward/back, LX->yaw
             #   TCP orientation: RX->RX, RY->RY (in tool frame)
-            cmd_out.linear.x = -ly * lin_scale * speed_factor
-            cmd_out.angular.z = -lx * ang_scale * speed_factor
+            cmd_out.linear.x = ly * lin_scale * speed_factor
+            cmd_out.angular.z = lx * ang_scale * speed_factor
 
             twist_out.twist.angular.x = rx * ang_scale * speed_factor
             twist_out.twist.angular.y = ry * ang_scale * speed_factor
