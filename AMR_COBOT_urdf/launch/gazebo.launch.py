@@ -5,7 +5,6 @@ from launch.substitutions import LaunchConfiguration, PathJoinSubstitution, Pyth
 from launch.conditions import IfCondition
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
-from ament_index_python.packages import get_package_share_directory, PackageNotFoundError
 import os
 import re
 import json
@@ -207,21 +206,15 @@ def generate_launch_description():
 
     # A dedicated node holding a ros2_control-friendly robot_description (no visual/collision),
     # used by gazebo_ros2_control to avoid parameter parsing issues.
-    ros2_control_description_node = None
-    try:
-        get_package_share_directory('amr_cobot_teleop')
-        ros2_control_description_node = Node(
-            package='amr_cobot_teleop',
-            executable='ros2_control_description_node',
-            name='ros2_control_description',
-            output='screen',
-            parameters=[{
-                'urdf_path': urdf_abs_path if 'urdf_abs_path' in locals() else '/ros2_ws/src/amr_cobot/urdf/AMR_COBOT.urdf'
-            }]
-        )
-    except PackageNotFoundError:
-        # Teleop package is optional; keep Gazebo+RViz launch working without it.
-        ros2_control_description_node = None
+    ros2_control_description_node = Node(
+        package='amr_cobot',
+        executable='ros2_control_description_node',
+        name='ros2_control_description',
+        output='screen',
+        parameters=[{
+            'urdf_path': urdf_abs_path if 'urdf_abs_path' in locals() else '/ros2_ws/src/amr_cobot/urdf/AMR_COBOT.urdf'
+        }]
+    )
 
     # Static transform publisher between base_footprint and base_link.
     # IMPORTANT: diff_drive publishes odom -> base_footprint, so base_footprint must be parent of base_link
