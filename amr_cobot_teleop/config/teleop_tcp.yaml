@@ -1,0 +1,37 @@
+teleop_tcp_node:
+  ros__parameters:
+    use_sim_time: true
+    tool_frame: tool0
+    joy_topic: /joy
+    twist_topic: /servo_node/delta_twist_cmds
+    cmd_vel_topic: /cmd_vel
+    publish_rate_hz: 50.0
+    deadzone: 0.08
+    linear_scale: 1.0
+    angular_scale: 1.0
+
+    # EdgeTX Radiomaster Pocket Joystick mapping (as you described):
+    # axes:
+    #  0: RX
+    #  1: -RY  (so invert_ry=true)
+    #  2: LY
+    #  3: -LX  (so invert_lx=true)
+    #  4: mode switch (2 positions)
+    axis_rx: 0
+    axis_ry: 1
+    axis_ly: 2
+    axis_lx: 3
+    axis_mode_switch: 4
+    mode1_when_switch_gt: 0.5
+    mode2_when_switch_lt: -0.5
+
+    invert_lx: true
+    invert_ry: true
+    invert_ly: false
+    invert_rx: false
+    axis_speed_scale: -1
+
+    # deadman_button: set to your button index; -1 disables deadman (always enabled)
+    deadman_button: -1
+
+

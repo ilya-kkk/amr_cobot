@@ -1,0 +1,1239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<robot
+  name="AMR_COBOT">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="-0.41857 -0.00059278 0.32853"
+        rpy="0 0 0" />
+      <mass
+        value="100" />
+      <inertia
+        ixx="6.3681"
+        ixy="0.29101"
+        ixz="-0.038066"
+        iyy="10.084"
+        iyz="-0.00015702"
+        izz="15.505" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://amr_cobot/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.7 0.7 0.7 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://amr_cobot/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+    <collision name="caster_collision_center">
+      <origin xyz="0.76926 0.0 -0.01" rpy="0.0 0.0 0.0" />
+      <geometry>
+        <sphere radius="0.01" />
+      </geometry>
+      <surface>
+        <friction>
+          <ode>
+            <mu>0</mu>
+            <mu2>0</mu2>
+            <slip1>1.0</slip1>
+            <slip2>1.0</slip2>
+          </ode>
+        </friction>
+      </surface>
+    </collision>
+    <visual name="caster_visual_center">
+      <origin xyz="0.76926 0.0 -0.01" rpy="0.0 0.0 0.0" />
+      <geometry>
+        <sphere radius="0.01" />
+      </geometry>
+      <material name="blue">
+        <color rgba="0 0 1 1" />
+      </material>
+    </visual>
+    <collision name="caster_collision_center_far">
+      <origin xyz="-1.53852 0.0 -0.01" rpy="0.0 0.0 0.0" />
+      <geometry>
+        <sphere radius="0.01" />
+      </geometry>
+      <surface>
+        <friction>
+          <ode>
+            <mu>0</mu>
+            <mu2>0</mu2>
+            <slip1>1.0</slip1>
+            <slip2>1.0</slip2>
+          </ode>
+        </friction>
+      </surface>
+    </collision>
+    <visual name="caster_visual_center_far">
+      <origin xyz="-1.53852 0.0 -0.01" rpy="0.0 0.0 0.0" />
+      <geometry>
+        <sphere radius="0.01" />
+      </geometry>
+      <material name="blue">
+        <color rgba="0 0 1 1" />
+      </material>
+    </visual>
+  </link>
+  <link
+    name="right_wheel_Link">
+    <inertial>
+      <origin
+        xyz="4.4409E-16 2.2204E-16 -0.025002"
+        rpy="0 0 0" />
+      <mass
+        value="0.58768" />
+      <inertia
+        ixx="0.0013503"
+        ixy="-2.3845E-19"
+        ixz="-9.6325E-19"
+        iyy="0.0013503"
+        iyz="-1.5697E-19"
+        izz="0.0025103" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://amr_cobot/meshes/right_wheel_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 0.84 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://amr_cobot/meshes/right_wheel_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_wheel_joint"
+    type="continuous">
+    <origin
+      xyz="-0.4125 -0.328 0.05975"
+      rpy="1.5708 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="right_wheel_Link" />
+    <axis
+      xyz="0 0 -1" />
+  </joint>
+  <link
+    name="left_wheel_Link">
+    <inertial>
+      <origin
+        xyz="4.4409E-16 2.2204E-16 -0.025002"
+        rpy="0 0 0" />
+      <mass
+        value="0.58768" />
+      <inertia
+        ixx="0.0013503"
+        ixy="-2.3841E-19"
+        ixz="-9.7235E-19"
+        iyy="0.0013503"
+        iyz="-1.5697E-19"
+        izz="0.0025103" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://amr_cobot/meshes/left_wheel_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 0.84 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://amr_cobot/meshes/left_wheel_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_wheel_joint"
+    type="continuous">
+    <origin
+      xyz="-0.4125 0.278 0.05975"
+      rpy="1.5708 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="left_wheel_Link" />
+    <axis
+      xyz="0 0 -1" />
+  </joint>
+  <link
+    name="back_lidar_Link">
+    <inertial>
+      <origin
+        xyz="-1.7613E-08 0.0017301 -0.020175"
+        rpy="0 0 0" />
+      <mass
+        value="0.01124" />
+      <inertia
+        ixx="4.5322E-06"
+        ixy="-1.8414E-11"
+        ixz="-1.507E-11"
+        iyy="4.1096E-06"
+        iyz="-6.1962E-08"
+        izz="4.7465E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://amr_cobot/meshes/back_lidar_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://amr_cobot/meshes/back_lidar_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="back_lidar_joint"
+    type="fixed">
+    <origin
+      xyz="-0.76926 -0.26626 0.2425"
+      rpy="0 0 0.7854" />
+    <parent
+      link="base_link" />
+    <child
+      link="back_lidar_Link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="front_lidar_Link">
+    <inertial>
+      <origin
+        xyz="-1.7611E-08 0.0017301 -0.020175"
+        rpy="0 0 0" />
+      <mass
+        value="0.01124" />
+      <inertia
+        ixx="4.5322E-06"
+        ixy="-1.8402E-11"
+        ixz="-1.507E-11"
+        iyy="4.1096E-06"
+        iyz="-6.1962E-08"
+        izz="4.7465E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://amr_cobot/meshes/front_lidar_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://amr_cobot/meshes/front_lidar_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="front_lidar_joint"
+    type="fixed">
+    <origin
+      xyz="-0.04613 0.27687 0.242"
+      rpy="0 0 0.7854" />
+    <parent
+      link="base_link" />
+    <child
+      link="front_lidar_Link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="camera_Link">
+    <inertial>
+      <origin
+        xyz="-0.010571 -7.4625E-05 -0.00035127"
+        rpy="0 0 0" />
+      <mass
+        value="0.32532" />
+      <inertia
+        ixx="0.00025053"
+        ixy="-4.8174E-08"
+        ixz="2.6632E-07"
+        iyy="2.2024E-05"
+        iyz="3.9209E-07"
+        izz="0.00024655" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://amr_cobot/meshes/camera_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://amr_cobot/meshes/camera_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="camera_joint"
+    type="fixed">
+    <origin
+      xyz="0.03755 0 0.595"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="camera_Link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="robot_base_Link">
+    <inertial>
+      <origin
+        xyz="-0.031916 -0.083658 0.49434"
+        rpy="0 0 0" />
+      <mass
+        value="5" />
+      <inertia
+        ixx="54.499"
+        ixy="0.48691"
+        ixz="-4.6678"
+        iyy="55.59"
+        iyz="1.6404"
+        izz="5.6058" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://amr_cobot/meshes/robot_base_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.3 0.3 0.3 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://amr_cobot/meshes/robot_base_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="robot_base_joint"
+    type="fixed">
+    <origin
+      xyz="-0.133 0 0.61"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="robot_base_Link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="1_Link">
+    <inertial>
+      <origin
+        xyz="-0.083658 0.031916 0.40534"
+        rpy="0 0 0" />
+      <mass
+        value="5" />
+      <inertia
+        ixx="55.59"
+        ixy="-0.48691"
+        ixz="1.6404"
+        iyy="54.499"
+        iyz="4.6678"
+        izz="5.6058" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://amr_cobot/meshes/1_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.3 0.3 0.3 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://amr_cobot/meshes/1_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="1_joint"
+    type="revolute">
+    <origin
+      xyz="0 0 0.089"
+      rpy="0 0 1.5708" />
+    <parent
+      link="robot_base_Link" />
+    <child
+      link="1_Link" />
+    <axis
+      xyz="0 0 1" />
+    <dynamics damping="50.0" friction="20.0" />
+    <limit
+      lower="-3.1415"
+      upper="3.1415"
+      effort="100"
+      velocity="10" />
+  </joint>
+  <link
+    name="2_Link">
+    <inertial>
+      <origin
+        xyz="0.32584 0.031916 -0.010842"
+        rpy="0 0 0" />
+      <mass
+        value="5" />
+      <inertia
+        ixx="5.6058"
+        ixy="4.6678"
+        ixz="-1.6404"
+        iyy="54.499"
+        iyz="0.48691"
+        izz="55.59" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://amr_cobot/meshes/2_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.3 0.3 0.3 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://amr_cobot/meshes/2_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="2_joint"
+    type="revolute">
+    <origin
+      xyz="-0.0945 0 0.0795"
+      rpy="-3.1416 -1.5708 3.1416" />
+    <parent
+      link="1_Link" />
+    <child
+      link="2_Link" />
+    <axis
+      xyz="0 0 1" />
+    <dynamics damping="50.0" friction="20.0" />
+    <limit
+      lower="-3.1415"
+      upper="3.1415"
+      effort="100"
+      velocity="10" />
+  </joint>
+  <link
+    name="3_Link">
+    <inertial>
+      <origin
+        xyz="-0.28416 -0.032166 0.010842"
+        rpy="0 0 0" />
+      <mass
+        value="5" />
+      <inertia
+        ixx="5.6058"
+        ixy="-4.6678"
+        ixz="1.6404"
+        iyy="54.499"
+        iyz="0.48691"
+        izz="55.59" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://amr_cobot/meshes/3_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.3 0.3 0.3 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://amr_cobot/meshes/3_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="3_joint"
+    type="revolute">
+    <origin
+      xyz="0.61 -0.00025 0"
+      rpy="-3.1416 0 0" />
+    <parent
+      link="2_Link" />
+    <child
+      link="3_Link" />
+    <axis
+      xyz="0 0 -1" />
+    <dynamics damping="50.0" friction="20.0" />
+    <limit
+      lower="-2.8797"
+      upper="2.8797"
+      effort="100"
+      velocity="10" />
+  </joint>
+  <link
+    name="4_Link">
+    <inertial>
+      <origin
+        xyz="-0.83436 0.031916 -0.022642"
+        rpy="0 0 0" />
+      <mass
+        value="2" />
+      <inertia
+        ixx="5.6058"
+        ixy="4.6678"
+        ixz="-1.6404"
+        iyy="54.499"
+        iyz="0.48691"
+        izz="55.59" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://amr_cobot/meshes/4_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.3 0.3 0.3 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://amr_cobot/meshes/4_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="4_joint"
+    type="revolute">
+    <origin
+      xyz="0.5502 -0.00025 -0.0118"
+      rpy="-3.1416 0 0" />
+    <parent
+      link="3_Link" />
+    <child
+      link="4_Link" />
+    <axis
+      xyz="0 0 -1" />
+    <dynamics damping="50.0" friction="20.0" />
+    <limit
+      lower="-3.1415"
+      upper="3.1415"
+      effort="100"
+      velocity="10" />
+  </joint>
+  <link
+    name="5_Link">
+    <inertial>
+      <origin
+        xyz="0.081642 0.031916 -0.91516"
+        rpy="0 0 0" />
+      <mass
+        value="2" />
+      <inertia
+        ixx="55.59"
+        ixy="-0.48691"
+        ixz="1.6404"
+        iyy="54.499"
+        iyz="4.6678"
+        izz="5.6058" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://amr_cobot/meshes/5_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.3 0.3 0.3 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://amr_cobot/meshes/5_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="5_joint"
+    type="revolute">
+    <origin
+      xyz="0.0808 0 0.059"
+      rpy="0 1.5708 0" />
+    <parent
+      link="4_Link" />
+    <child
+      link="5_Link" />
+    <axis
+      xyz="0 0 -1" />
+    <dynamics damping="50.0" friction="20.0" />
+    <limit
+      lower="-3.1415"
+      upper="3.1415"
+      effort="100"
+      velocity="10" />
+  </joint>
+  <link
+    name="6_Link">
+    <inertial>
+      <origin
+        xyz="0.031916 -0.97416 0.00084191"
+        rpy="0 0 0" />
+      <mass
+        value="2" />
+      <inertia
+        ixx="54.499"
+        ixy="4.6678"
+        ixz="-0.48691"
+        iyy="5.6058"
+        iyz="1.6404"
+        izz="55.59" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://amr_cobot/meshes/6_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.3 0.3 0.3 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://amr_cobot/meshes/6_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="6_joint"
+    type="revolute">
+    <origin
+      xyz="0.0808 0 0.059"
+      rpy="1.5708 0 1.5708" />
+    <parent
+      link="5_Link" />
+    <child
+      link="6_Link" />
+    <axis
+      xyz="0 0 1" />
+    <dynamics damping="50.0" friction="20.0" />
+    <limit
+      lower="-3.1415"
+      upper="3.1415"
+      effort="100"
+      velocity="10" />
+  </joint>
+  <link
+    name="flange_camera_Link">
+    <inertial>
+      <origin
+        xyz="-0.010571 -3.9258E-05 -0.00035031"
+        rpy="0 0 0" />
+      <mass
+        value="0.32532" />
+      <inertia
+        ixx="0.00025053"
+        ixy="-9.0306E-07"
+        ixz="2.7881E-07"
+        iyy="2.2072E-05"
+        iyz="3.1699E-06"
+        izz="0.00024651" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://amr_cobot/meshes/flange_camera_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://amr_cobot/meshes/flange_camera_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="flange_camera_joint"
+    type="fixed">
+    <origin
+      xyz="0.00262956017470107 0.0770081818241233 0.0582600009055748"
+      rpy="0 -1.30902323342014 -1.55680716518356" />
+    <parent
+      link="6_Link" />
+    <child
+      link="flange_camera_Link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="hand_Link">
+    <inertial>
+      <origin
+        xyz="-0.029287 -0.00024477 -0.0265"
+        rpy="0 0 0" />
+      <mass
+        value="2.8053" />
+      <inertia
+        ixx="0.0017066"
+        ixy="2.5063E-06"
+        ixz="1.1797E-09"
+        iyy="0.0014028"
+        iyz="4.881E-08"
+        izz="0.0016431" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://amr_cobot/meshes/hand_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.3 0.3 0.3 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://amr_cobot/meshes/hand_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="hand_joint"
+    type="fixed">
+    <origin
+      xyz="0 -0.0265 0.133000000000005" 
+      rpy="1.57079632679489 -1.5707963267949 0" />
+    <parent
+      link="6_Link" />
+    <child
+      link="hand_Link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="1_hand_Link">
+    <inertial>
+      <origin
+        xyz="-0.024802 -0.06 5.3291E-15"
+        rpy="0 0 0" />
+      <mass
+        value="0.27082" />
+      <inertia
+        ixx="3.6535E-05"
+        ixy="3.2222E-20"
+        ixz="3.8744E-19"
+        iyy="8.3061E-05"
+        iyz="-1.801E-21"
+        izz="6.458E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://amr_cobot/meshes/1_hand_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://amr_cobot/meshes/1_hand_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="1_hand_joint"
+    type="prismatic">
+    <origin
+      xyz="0.073 0.025 -0.0265"
+      rpy="0 0 0" />
+    <parent
+      link="hand_Link" />
+    <child
+      link="1_hand_Link" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="-0.025"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="2_hand_Link">
+    <inertial>
+      <origin
+        xyz="-0.024802 0.06 5.5511E-15"
+        rpy="0 0 0" />
+      <mass
+        value="0.27082" />
+      <inertia
+        ixx="3.6535E-05"
+        ixy="-2.6576E-20"
+        ixz="3.3586E-19"
+        iyy="8.3061E-05"
+        iyz="-3.5579E-21"
+        izz="6.458E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://amr_cobot/meshes/2_hand_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://amr_cobot/meshes/2_hand_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="2_hand_joint"
+    type="prismatic">
+    <origin
+      xyz="0.073 -0.025 -0.0265"
+      rpy="0 0 0" />
+    <parent
+      link="hand_Link" />
+    <child
+      link="2_hand_Link" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="0"
+      upper="0.025"
+      effort="0"
+      velocity="0" />
+  </joint>
+
+  <link name="tool0" />
+  <joint name="tool0_fixed" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="6_Link" />
+    <child link="tool0" />
+  </joint>
+  <ros2_control name="AMR_COBOTSystem" type="system">
+    <hardware>
+      <plugin>gazebo_ros2_control/GazeboSystem</plugin>
+    </hardware>
+
+    <joint name="1_joint">
+      <command_interface name="velocity">
+        <param name="min">-2.0</param>
+        <param name="max">2.0</param>
+      </command_interface>
+      <state_interface name="position" />
+      <state_interface name="velocity" />
+    </joint>
+    <joint name="2_joint">
+      <command_interface name="velocity">
+        <param name="min">-2.0</param>
+        <param name="max">2.0</param>
+      </command_interface>
+      <state_interface name="position" />
+      <state_interface name="velocity" />
+    </joint>
+    <joint name="3_joint">
+      <command_interface name="velocity">
+        <param name="min">-2.0</param>
+        <param name="max">2.0</param>
+      </command_interface>
+      <state_interface name="position" />
+      <state_interface name="velocity" />
+    </joint>
+    <joint name="4_joint">
+      <command_interface name="velocity">
+        <param name="min">-2.0</param>
+        <param name="max">2.0</param>
+      </command_interface>
+      <state_interface name="position" />
+      <state_interface name="velocity" />
+    </joint>
+    <joint name="5_joint">
+      <command_interface name="velocity">
+        <param name="min">-2.0</param>
+        <param name="max">2.0</param>
+      </command_interface>
+      <state_interface name="position" />
+      <state_interface name="velocity" />
+    </joint>
+    <joint name="6_joint">
+      <command_interface name="velocity">
+        <param name="min">-2.0</param>
+        <param name="max">2.0</param>
+      </command_interface>
+      <state_interface name="position" />
+      <state_interface name="velocity" />
+    </joint>
+  </ros2_control>
+
+  <gazebo>
+    <plugin name="gazebo_ros2_control" filename="libgazebo_ros2_control.so">
+      <ros>
+        <namespace>/</namespace>
+      </ros>
+      <robot_param>robot_description</robot_param>
+      <robot_param_node>ros2_control_description</robot_param_node>
+      <!-- Required: ros2_control controller_manager configuration -->
+      <parameters>/ros2_ws/src/amr_cobot/config/ros2_controllers.yaml</parameters>
+    </plugin>
+  </gazebo>
+
+  <!-- Gazebo Classic plugins / sensors (merged from AMR_COBOT.gazebo so they are loaded when spawning from URDF) -->
+
+  <!-- Set colors for Gazebo -->
+  <gazebo reference="base_link">
+    <material>Gazebo/Gray</material>
+  </gazebo>
+
+  <!-- Differential Drive (mobile base) -->
+  <gazebo>
+    <plugin name="gazebo_ros_diff_drive" filename="libgazebo_ros_diff_drive.so">
+      <ros>
+        <namespace>/</namespace>
+      </ros>
+
+      <update_rate>60</update_rate>
+
+      <!-- wheels -->
+      <left_joint>left_wheel_joint</left_joint>
+      <right_joint>right_wheel_joint</right_joint>
+
+      <!-- kinematics -->
+      <wheel_separation>0.606</wheel_separation>
+      <wheel_diameter>0.1</wheel_diameter>
+
+      <!-- limits -->
+      <max_wheel_torque>20</max_wheel_torque>
+      <max_wheel_acceleration>5.0</max_wheel_acceleration>
+
+      <!-- input -->
+      <command_topic>cmd_vel</command_topic>
+
+      <!-- output -->
+      <publish_odom>true</publish_odom>
+      <publish_odom_tf>true</publish_odom_tf>
+      <publish_wheel_tf>true</publish_wheel_tf>
+
+      <odometry_topic>odom</odometry_topic>
+      <odometry_frame>odom</odometry_frame>
+      <robot_base_frame>base_footprint</robot_base_frame>
+    </plugin>
+  </gazebo>
+
+  <!-- Front Lidar -->
+  <gazebo reference="front_lidar_Link">
+    <sensor type="ray" name="front_lidar_sensor">
+      <pose>0 0 0 0 0 0</pose>
+      <visualize>false</visualize>
+      <update_rate>10</update_rate>
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>720</samples>
+            <resolution>1</resolution>
+            <min_angle>0</min_angle>
+            <max_angle>6.28</max_angle>
+          </horizontal>
+        </scan>
+        <range>
+          <min>0.1</min>
+          <max>12</max>
+          <resolution>0.01</resolution>
+        </range>
+        <noise>
+          <type>gaussian</type>
+          <mean>0.0</mean>
+          <stddev>0.01</stddev>
+        </noise>
+      </ray>
+      <plugin name="gazebo_ros_front_lidar_controller" filename="libgazebo_ros_ray_sensor.so">
+        <ros>
+          <namespace>/</namespace>
+          <remapping>~/out:=front_scan</remapping>
+        </ros>
+        <output_type>sensor_msgs/LaserScan</output_type>
+        <frame_name>front_lidar_Link</frame_name>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+  <!-- Back Lidar -->
+  <gazebo reference="back_lidar_Link">
+    <sensor type="ray" name="back_lidar_sensor">
+      <pose>0 0 0 0 0 0</pose>
+      <visualize>false</visualize>
+      <update_rate>10</update_rate>
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>720</samples>
+            <resolution>1</resolution>
+            <min_angle>0</min_angle>
+            <max_angle>6.28</max_angle>
+          </horizontal>
+        </scan>
+        <range>
+          <min>0.1</min>
+          <max>12</max>
+          <resolution>0.01</resolution>
+        </range>
+        <noise>
+          <type>gaussian</type>
+          <mean>0.0</mean>
+          <stddev>0.01</stddev>
+        </noise>
+      </ray>
+      <plugin name="gazebo_ros_back_lidar_controller" filename="libgazebo_ros_ray_sensor.so">
+        <ros>
+          <namespace>/</namespace>
+          <remapping>~/out:=back_scan</remapping>
+        </ros>
+        <output_type>sensor_msgs/LaserScan</output_type>
+        <frame_name>back_lidar_Link</frame_name>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+  <!-- Base Camera (camera_Link) -->
+  <gazebo reference="camera_Link">
+    <sensor type="camera" name="base_camera">
+      <update_rate>30</update_rate>
+      <camera name="base_camera">
+        <horizontal_fov>1.047198</horizontal_fov>
+        <image>
+          <width>640</width>
+          <height>480</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.05</near>
+          <far>3</far>
+        </clip>
+      </camera>
+      <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+        <ros>
+          <namespace>/</namespace>
+          <remapping>~/image_raw:=base_camera/image_raw</remapping>
+          <remapping>~/camera_info:=base_camera/camera_info</remapping>
+        </ros>
+        <camera_name>base_camera</camera_name>
+        <frame_name>camera_Link</frame_name>
+        <hack_baseline>0.07</hack_baseline>
+        <min_depth>0.05</min_depth>
+        <max_depth>3.0</max_depth>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+  <!-- Flange Camera (flange_camera_Link) -->
+  <gazebo reference="flange_camera_Link">
+    <sensor type="camera" name="flange_camera">
+      <update_rate>30</update_rate>
+      <camera name="flange_camera">
+        <horizontal_fov>1.047198</horizontal_fov>
+        <image>
+          <width>640</width>
+          <height>480</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.05</near>
+          <far>3</far>
+        </clip>
+      </camera>
+      <plugin name="flange_camera_controller" filename="libgazebo_ros_camera.so">
+        <ros>
+          <namespace>/</namespace>
+          <remapping>~/image_raw:=flange_camera/image_raw</remapping>
+          <remapping>~/camera_info:=flange_camera/camera_info</remapping>
+        </ros>
+        <camera_name>flange_camera</camera_name>
+        <frame_name>flange_camera_Link</frame_name>
+        <hack_baseline>0.07</hack_baseline>
+        <min_depth>0.05</min_depth>
+        <max_depth>3.0</max_depth>
+      </plugin>
+    </sensor>
+  </gazebo>
+</robot>

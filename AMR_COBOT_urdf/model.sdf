@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<sdf version="1.6">
+  <model name="amr_cobot">
+    <!-- This SDF is intentionally minimal. The robot is spawned from URDF via gazebo_ros/spawn_entity. -->
+    <static>true</static>
+  </model>
+</sdf>
+
+

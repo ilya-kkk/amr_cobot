@@ -1,0 +1,44 @@
+servo_node:
+  ros__parameters:
+    ## Properties of incoming commands
+    # For teleop we publish real velocities (m/s and rad/s) in tool0 frame.
+    command_in_type: "twist"
+
+    ## Properties of outgoing commands
+    publish_period: 0.02          # 50 Hz nominal
+    low_latency_mode: true        # publish immediately on input
+    command_out_type: std_msgs/Float64MultiArray
+    publish_joint_positions: false
+    publish_joint_velocities: true
+    publish_joint_accelerations: false
+
+    ## MoveIt group/frames
+    move_group_name: manipulator
+    planning_frame: base_link
+    ee_frame_name: tool0
+    robot_link_command_frame: tool0
+
+    ## Stopping behaviour
+    incoming_command_timeout: 0.1
+    num_outgoing_halt_msgs_to_publish: 4
+
+    ## Configure handling of singularities and joint limits
+    lower_singularity_threshold: 17.0
+    hard_stop_singularity_threshold: 30.0
+    joint_limit_margin: 0.1
+    leaving_singularity_threshold_multiplier: 2.0
+
+    ## Topic names
+    cartesian_command_in_topic: ~/delta_twist_cmds
+    joint_command_in_topic: ~/delta_joint_cmds
+    joint_topic: /joint_states_mux
+    status_topic: ~/status
+    command_out_topic: /arm_velocity_controller/commands
+
+    ## Collision checking (demo: disabled; joint limits remain enabled)
+    check_collisions: false
+    collision_check_rate: 10.0
+    self_collision_proximity_threshold: 0.01
+    scene_collision_proximity_threshold: 0.02
+
+

@@ -1,0 +1,295 @@
+<?xml version="1.0"?>
+<robot>
+    <!-- SET COLORS FOR GAZEBO -->
+    <gazebo reference="base_link">
+        <material>Gazebo/Green</material>
+    </gazebo>
+
+    <!-- Differential Drive Controller -->
+    <gazebo>
+        <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
+            <legacyMode>false</legacyMode>
+            <alwaysOn>true</alwaysOn>
+            <updateRate>60</updateRate>
+            <leftJoint>left_wheel_joint</leftJoint>
+            <rightJoint>right_wheel_joint</rightJoint> 
+            <wheelSeparation>0.606</wheelSeparation>
+            <wheelDiameter>0.1</wheelDiameter>
+            <wheelTorque>20</wheelTorque>
+            <commandTopic>cmd_vel</commandTopic>
+            <odometryTopic>odom</odometryTopic>
+            <odometryFrame>odom</odometryFrame>
+            <robotBaseFrame>base_footprint</robotBaseFrame>
+        </plugin>
+    </gazebo>
+
+    <!-- Front Lidar -->
+    <gazebo reference="front_lidar_Link">
+        <sensor type="ray" name="front_lidar_sensor">
+            <pose>0 0 0 0 0 0</pose>
+            <visualize>false</visualize>
+            <update_rate>10</update_rate>
+            <ray>
+                <scan>
+                    <horizontal>
+                        <samples>720</samples>
+                        <resolution>1</resolution>
+                        <min_angle>0</min_angle>
+                        <max_angle>6.28</max_angle>
+                    </horizontal>
+                </scan>
+                <range>
+                    <min>0.1</min>
+                    <max>12</max>
+                    <resolution>0.01</resolution>
+                </range>
+                <noise>
+                    <type>gaussian</type>
+                    <mean>0.0</mean>
+                    <stddev>0.01</stddev>
+                </noise> 
+            </ray>
+            <plugin name="gazebo_ros_front_lidar_controller" filename="libgazebo_ros_ray_sensor.so">
+                <ros>
+                    <namespace>/</namespace>
+                    <remapping>~/out:=front_scan</remapping>
+                </ros>
+                <output_type>sensor_msgs/msg/LaserScan</output_type>
+                <frame_name>front_lidar_Link</frame_name>
+            </plugin>
+        </sensor>
+    </gazebo>
+
+    <!-- Back Lidar -->
+    <gazebo reference="back_lidar_Link">
+        <sensor type="ray" name="back_lidar_sensor">
+            <pose>0 0 0 0 0 0</pose>
+            <visualize>false</visualize>
+            <update_rate>10</update_rate>
+            <ray>
+                <scan>
+                    <horizontal>
+                        <samples>720</samples>
+                        <resolution>1</resolution>
+                        <min_angle>0</min_angle>
+                        <max_angle>6.28</max_angle>
+                    </horizontal>
+                </scan>
+                <range>
+                    <min>0.1</min>
+                    <max>12</max>
+                    <resolution>0.01</resolution>
+                </range>
+                <noise>
+                    <type>gaussian</type>
+                    <mean>0.0</mean>
+                    <stddev>0.01</stddev>
+                </noise> 
+            </ray>
+            <plugin name="gazebo_ros_back_lidar_controller" filename="libgazebo_ros_ray_sensor.so">
+                <ros>
+                    <namespace>/</namespace>
+                    <remapping>~/out:=back_scan</remapping>
+                </ros>
+                <output_type>sensor_msgs/msg/LaserScan</output_type>
+                <frame_name>back_lidar_Link</frame_name>
+            </plugin>
+        </sensor>
+    </gazebo>
+
+    <!-- Base Camera (camera_Link) -->
+    <gazebo reference="camera_Link">
+        <sensor type="camera" name="base_camera">
+            <update_rate>30</update_rate>
+            <camera name="base_camera">
+                <horizontal_fov>1.047198</horizontal_fov>
+                <image>
+                    <width>640</width>
+                    <height>480</height>
+                    <format>R8G8B8</format>
+                </image>
+                <clip>
+                    <near>0.05</near>
+                    <far>3</far>
+                </clip>
+            </camera>
+            <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+                <ros>
+                    <namespace>/</namespace>
+                    <remapping>~/image_raw:=base_camera/image_raw</remapping>
+                    <remapping>~/camera_info:=base_camera/camera_info</remapping>
+                </ros>
+                <camera_name>base_camera</camera_name>
+                <frame_name>camera_Link</frame_name>
+                <hack_baseline>0.07</hack_baseline>
+                <min_depth>0.05</min_depth>
+                <max_depth>10.0</max_depth>
+            </plugin>
+        </sensor>
+    </gazebo>
+
+    <!-- Flange Camera (flange_camera_Link) -->
+    <gazebo reference="flange_camera_Link">
+        <sensor type="camera" name="flange_camera">
+            <update_rate>30</update_rate>
+            <camera name="flange_camera">
+                <horizontal_fov>1.047198</horizontal_fov>
+                <image>
+                    <width>640</width>
+                    <height>480</height>
+                    <format>R8G8B8</format>
+                </image>
+                <clip>
+                    <near>0.05</near>
+                    <far>3</far>
+                </clip>
+            </camera>
+            <plugin name="flange_camera_controller" filename="libgazebo_ros_camera.so">
+                <ros>
+                    <namespace>/</namespace>
+                    <remapping>~/image_raw:=flange_camera/image_raw</remapping>
+                    <remapping>~/camera_info:=flange_camera/camera_info</remapping>
+                </ros>
+                <camera_name>flange_camera</camera_name>
+                <frame_name>flange_camera_Link</frame_name>
+                <hack_baseline>0.07</hack_baseline>
+                <min_depth>0.05</min_depth>
+                <max_depth>10.0</max_depth>
+            </plugin>
+        </sensor>
+    </gazebo>
+
+    <!-- PID Controllers for Manipulator Joints -->
+    <gazebo reference="1_joint">
+        <implicitSpringDamper>1</implicitSpringDamper>
+        <stopCfm>0.00001</stopCfm>
+        <stopErp>0.1</stopErp>
+        <fudgeFactor>0.5</fudgeFactor>
+        <provideFeedback>true</provideFeedback>
+        <physics>
+            <ode>
+                <limit>
+                    <lower>-3.1415</lower>
+                    <upper>3.1415</upper>
+                    <effort>100</effort>
+                    <velocity>10</velocity>
+                </limit>
+                <suspension>
+                    <cfm>0.0</cfm>
+                    <erp>0.2</erp>
+                </suspension>
+            </ode>
+        </physics>
+    </gazebo>
+
+    <gazebo reference="2_joint">
+        <implicitSpringDamper>1</implicitSpringDamper>
+        <stopCfm>0.00001</stopCfm>
+        <stopErp>0.1</stopErp>
+        <fudgeFactor>0.5</fudgeFactor>
+        <provideFeedback>true</provideFeedback>
+        <physics>
+            <ode>
+                <limit>
+                    <lower>-3.1415</lower>
+                    <upper>3.1415</upper>
+                    <effort>100</effort>
+                    <velocity>10</velocity>
+                </limit>
+                <suspension>
+                    <cfm>0.0</cfm>
+                    <erp>0.2</erp>
+                </suspension>
+            </ode>
+        </physics>
+    </gazebo>
+
+    <gazebo reference="3_joint">
+        <implicitSpringDamper>1</implicitSpringDamper>
+        <stopCfm>0.00001</stopCfm>
+        <stopErp>0.1</stopErp>
+        <fudgeFactor>0.5</fudgeFactor>
+        <provideFeedback>true</provideFeedback>
+        <physics>
+            <ode>
+                <limit>
+                    <lower>-2.8797</lower>
+                    <upper>2.8797</upper>
+                    <effort>100</effort>
+                    <velocity>10</velocity>
+                </limit>
+                <suspension>
+                    <cfm>0.0</cfm>
+                    <erp>0.2</erp>
+                </suspension>
+            </ode>
+        </physics>
+    </gazebo>
+
+    <gazebo reference="4_joint">
+        <implicitSpringDamper>1</implicitSpringDamper>
+        <stopCfm>0.00001</stopCfm>
+        <stopErp>0.1</stopErp>
+        <fudgeFactor>0.5</fudgeFactor>
+        <provideFeedback>true</provideFeedback>
+        <physics>
+            <ode>
+                <limit>
+                    <lower>-3.1415</lower>
+                    <upper>3.1415</upper>
+                    <effort>100</effort>
+                    <velocity>10</velocity>
+                </limit>
+                <suspension>
+                    <cfm>0.0</cfm>
+                    <erp>0.2</erp>
+                </suspension>
+            </ode>
+        </physics>
+    </gazebo>
+
+    <gazebo reference="5_joint">
+        <implicitSpringDamper>1</implicitSpringDamper>
+        <stopCfm>0.00001</stopCfm>
+        <stopErp>0.1</stopErp>
+        <fudgeFactor>0.5</fudgeFactor>
+        <provideFeedback>true</provideFeedback>
+        <physics>
+            <ode>
+                <limit>
+                    <lower>-3.1415</lower>
+                    <upper>3.1415</upper>
+                    <effort>100</effort>
+                    <velocity>10</velocity>
+                </limit>
+                <suspension>
+                    <cfm>0.0</cfm>
+                    <erp>0.2</erp>
+                </suspension>
+            </ode>
+        </physics>
+    </gazebo>
+
+    <gazebo reference="6_joint">
+        <implicitSpringDamper>1</implicitSpringDamper>
+        <stopCfm>0.00001</stopCfm>
+        <stopErp>0.1</stopErp>
+        <fudgeFactor>0.5</fudgeFactor>
+        <provideFeedback>true</provideFeedback>
+        <physics>
+            <ode>
+                <limit>
+                    <lower>-3.1415</lower>
+                    <upper>3.1415</upper>
+                    <effort>100</effort>
+                    <velocity>10</velocity>
+                </limit>
+                <suspension>
+                    <cfm>0.0</cfm>
+                    <erp>0.2</erp>
+                </suspension>
+            </ode>
+        </physics>
+    </gazebo>
+
+</robot>
