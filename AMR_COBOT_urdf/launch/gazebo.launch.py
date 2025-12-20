@@ -10,6 +10,7 @@ import re
 import json
 import time
 import urllib.request
+import yaml
 
 
 def generate_launch_description():
@@ -211,6 +212,36 @@ def generate_launch_description():
                 robot_semantic = ''
                 continue
 
+    def _load_yaml_file(path: str) -> dict:
+        try:
+            with open(path, 'r', encoding='utf-8') as f:
+                data = yaml.safe_load(f)
+            return data if isinstance(data, dict) else {}
+        except Exception:
+            return {}
+
+    # Load kinematics + joint limits for RViz MotionPlanning display
+    kinematics_candidates = [
+        '/ros2_ws/src/amr_cobot_moveit_config/config/kinematics.yaml',
+        '/ros2_ws/install/amr_cobot_moveit_config/share/amr_cobot_moveit_config/config/kinematics.yaml',
+    ]
+    joint_limits_candidates = [
+        '/ros2_ws/src/amr_cobot_moveit_config/config/joint_limits.yaml',
+        '/ros2_ws/install/amr_cobot_moveit_config/share/amr_cobot_moveit_config/config/joint_limits.yaml',
+    ]
+
+    robot_kinematics = {}
+    for p in kinematics_candidates:
+        if os.path.exists(p):
+            robot_kinematics = _load_yaml_file(p)
+            break
+
+    joint_limits_yaml = {}
+    for p in joint_limits_candidates:
+        if os.path.exists(p):
+            joint_limits_yaml = _load_yaml_file(p)
+            break
+
     # Robot state publisher
     robot_state_publisher_node = Node(
         package='robot_state_publisher',
@@ -325,6 +356,8 @@ def generate_launch_description():
         parameters=[
             {'robot_description': robot_desc},
             {'robot_description_semantic': robot_semantic},
+            {'robot_description_kinematics': robot_kinematics},
+            {'robot_description_planning': joint_limits_yaml.get('joint_limits', {})},
         ],
     )
 
