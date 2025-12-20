@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1">
+  <asset>
+    <contributor><authoring_tool>make_tag_assets.py</authoring_tool></contributor>
+    <unit name="meter" meter="1"/>
+    <up_axis>Z_UP</up_axis>
+  </asset>
+
+  <library_images>
+    <image id="april1_tag-img" name="april1_tag-img">
+      <init_from>apriltag1.ppm</init_from>
+    </image>
+  </library_images>
+
+  <library_effects>
+    <effect id="april1_tag-fx">
+      <profile_COMMON>
+        <newparam sid="surface">
+          <surface type="2D">
+            <init_from>april1_tag-img</init_from>
+          </surface>
+        </newparam>
+        <newparam sid="sampler">
+          <sampler2D>
+            <source>surface</source>
+          </sampler2D>
+        </newparam>
+        <technique sid="common">
+          <lambert>
+            <emission>
+              <color>1 1 1 1</color>
+            </emission>
+            <diffuse>
+              <texture texture="sampler" texcoord="TEXCOORD"/>
+            </diffuse>
+          </lambert>
+        </technique>
+      </profile_COMMON>
+    </effect>
+  </library_effects>
+
+  <library_materials>
+    <material id="april1_tag-mat" name="april1_tag-mat">
+      <instance_effect url="#april1_tag-fx"/>
+    </material>
+  </library_materials>
+
+  <library_geometries>
+    <geometry id="april1_tag-geom" name="april1_tag">
+      <mesh>
+        <source id="april1_tag-pos">
+          <float_array id="april1_tag-pos-array" count="12">-0.1 -0.1 0 0.1 -0.1 0 0.1 0.1 0 -0.1 0.1 0</float_array>
+          <technique_common>
+            <accessor source="#april1_tag-pos-array" count="4" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+
+        <source id="april1_tag-uv">
+          <float_array id="april1_tag-uv-array" count="8">0 0 1 0 1 1 0 1</float_array>
+          <technique_common>
+            <accessor source="#april1_tag-uv-array" count="4" stride="2">
+              <param name="S" type="float"/>
+              <param name="T" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+
+        <vertices id="april1_tag-vtx">
+          <input semantic="POSITION" source="#april1_tag-pos"/>
+        </vertices>
+
+        <!-- Front face -->
+        <triangles count="2" material="mat0">
+          <input semantic="VERTEX" source="#april1_tag-vtx" offset="0"/>
+          <input semantic="TEXCOORD" source="#april1_tag-uv" offset="1" set="0"/>
+          <p>0 0 1 1 2 2 0 0 2 2 3 3</p>
+        </triangles>
+
+        <!-- Back face (duplicate with reversed winding so it's visible from behind) -->
+        <triangles count="2" material="mat0">
+          <input semantic="VERTEX" source="#april1_tag-vtx" offset="0"/>
+          <input semantic="TEXCOORD" source="#april1_tag-uv" offset="1" set="0"/>
+          <p>0 0 2 2 1 1 0 0 3 3 2 2</p>
+        </triangles>
+      </mesh>
+    </geometry>
+  </library_geometries>
+
+  <library_visual_scenes>
+    <visual_scene id="Scene" name="Scene">
+      <node id="april1_tag-node" name="april1_tag">
+        <instance_geometry url="#april1_tag-geom">
+          <bind_material>
+            <technique_common>
+              <instance_material symbol="mat0" target="#april1_tag-mat">
+                <bind_vertex_input semantic="TEXCOORD" input_semantic="TEXCOORD" input_set="0"/>
+              </instance_material>
+            </technique_common>
+          </bind_material>
+        </instance_geometry>
+      </node>
+    </visual_scene>
+  </library_visual_scenes>
+
+  <scene>
+    <instance_visual_scene url="#Scene"/>
+  </scene>
+</COLLADA>

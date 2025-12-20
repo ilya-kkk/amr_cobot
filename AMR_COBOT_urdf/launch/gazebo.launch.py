@@ -228,7 +228,18 @@ def generate_launch_description():
 
     # Gazebo Classic MUST be started with GazeboRosFactory, otherwise /spawn_entity service won't exist.
     # We launch gzserver/gzclient explicitly with required plugins to avoid silent failures.
-    world_path = PathJoinSubstitution([FindPackageShare('gazebo_ros'), 'worlds', 'empty.world'])
+    #
+    # Prefer a project world that already includes fixed CNC; fallback to gazebo_ros empty.world.
+    world_candidates = [
+        '/ros2_ws/src/amr_cobot/worlds/amr_cobot_with_cnc.world',
+        '/ros2_ws/install/amr_cobot/share/amr_cobot/worlds/amr_cobot_with_cnc.world',
+    ]
+    world_abs = ""
+    for p in world_candidates:
+        if os.path.exists(p):
+            world_abs = p
+            break
+    world_path = world_abs if world_abs else PathJoinSubstitution([FindPackageShare('gazebo_ros'), 'worlds', 'empty.world'])
 
     gzserver = ExecuteProcess(
         cmd=[
@@ -282,6 +293,7 @@ def generate_launch_description():
         period=5.0,
         actions=[spawn_model]
     )
+
 
     # Joint state publisher (non-GUI version for headless mode)
     # NOTE: In Gazebo + ros2_control we rely on joint_state_broadcaster for /joint_states.

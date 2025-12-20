@@ -33,6 +33,7 @@ WORKDIR /ros2_ws
 
 # Копирование пакетов в workspace
 COPY AMR_COBOT_urdf /ros2_ws/src/amr_cobot
+COPY cnc_urdf /ros2_ws/src/cnc_urdf
 
 # Установка зависимостей пакета
 RUN rosdep install --from-paths src --ignore-src -r -y || true

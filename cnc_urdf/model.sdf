@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<sdf version="1.6">
+  <model name="cnc_urdf">
+    <static>true</static>
+
+    <link name="base_link">
+      <pose>0 0 0 0 0 0</pose>
+
+      <!-- Whole CNC assembly -->
+      <visual name="cnc_visual">
+        <geometry>
+          <mesh>
+            <uri>model://cnc_urdf/meshes/base_link.dae</uri>
+          </mesh>
+        </geometry>
+        <!-- Improve readability: brighter diffuse + some specular highlight -->
+        <material>
+          <ambient>0.35 0.35 0.35 1</ambient>
+          <diffuse>0.75 0.75 0.78 1</diffuse>
+          <specular>0.25 0.25 0.25 1</specular>
+          <emissive>0 0 0 1</emissive>
+        </material>
+        <cast_shadows>true</cast_shadows>
+      </visual>
+
+      <collision name="cnc_collision">
+        <geometry>
+          <mesh>
+            <uri>model://cnc_urdf/meshes/base_link.dae</uri>
+          </mesh>
+        </geometry>
+      </collision>
+
+      <!-- AprilTag visuals (textured planes) -->
+      <visual name="april0_tag_visual">
+        <!-- from URDF april0_joint origin -->
+        <!-- +Z 180deg and -Y 90deg relative rotation -->
+        <pose>0.235 -0.692 -0.47097 0 -1.5708 1.5708</pose>
+        <geometry>
+          <mesh>
+            <uri>model://cnc_urdf/meshes/april0_tag.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+
+      <visual name="april1_tag_visual">
+        <!-- from URDF april1_joint origin -->
+        <!-- +Z 180deg and -Y 90deg relative rotation -->
+        <pose>0.3181 0.488 0.2081 0 -1.5708 1.5708</pose>
+        <geometry>
+          <mesh>
+            <uri>model://cnc_urdf/meshes/april1_tag.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+  </model>
+</sdf>
+
+

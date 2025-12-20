@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <world name="default">
+    <include>
+      <uri>model://sun</uri>
+    </include>
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+    <!-- Fixed CNC in the world -->
+    <include>
+      <name>cnc_urdf_1</name>
+      <uri>model://cnc_urdf</uri>
+      <pose>2 0 1.0 0 0 0</pose>
+    </include>
+
+    <!-- Two more CNC machines, 2m apart along +X -->
+    <include>
+      <name>cnc_urdf_2</name>
+      <uri>model://cnc_urdf</uri>
+      <pose>4 0 1.0 0 0 0</pose>
+    </include>
+    <include>
+      <name>cnc_urdf_3</name>
+      <uri>model://cnc_urdf</uri>
+      <pose>6 0 1.0 0 0 0</pose>
+    </include>
+  </world>
+</sdf>
+
+

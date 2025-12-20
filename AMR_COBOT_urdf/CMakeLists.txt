@@ -15,6 +15,7 @@ install(DIRECTORY
   meshes
   urdf
   textures
+  worlds
   DESTINATION share/${PROJECT_NAME}/
 )
 

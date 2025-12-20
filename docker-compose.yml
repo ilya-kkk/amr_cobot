@@ -21,6 +21,7 @@ services:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
       - ${XAUTH_FILE:-/home/user/.docker.xauth}:/tmp/.docker.xauth:rw
       - ./AMR_COBOT_urdf:/ros2_ws/src/amr_cobot:ro
+      - ./cnc_urdf:/ros2_ws/src/cnc_urdf:ro
     privileged: true
     stdin_open: true
     tty: true

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="cnc_urdf">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="0.915840594886966 0.934775666752181 0.885351657520358"
+        rpy="0 0 0" />
+      <mass
+        value="7182.48187505938" />
+      <inertia
+        ixx="1932.26811741251"
+        ixy="22.0988166144301"
+        ixz="-4.56529467659442"
+        iyy="2088.25122133043"
+        iyz="-190.011483328764"
+        izz="1765.59479653128" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://cnc_urdf/meshes/base_link.dae" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://cnc_urdf/meshes/base_link.dae" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="april0_Link">
+    <inertial>
+      <origin
+        xyz="-0.001 0.1 0.1"
+        rpy="0 0 0" />
+      <mass
+        value="0.624000000000001" />
+      <inertia
+        ixx="0.00416000000000001"
+        ixy="-2.19140820077552E-20"
+        ixz="-2.64714922937385E-21"
+        iyy="0.002080208"
+        iyz="-2.21611891150547E-19"
+        izz="0.002080208" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://cnc_urdf/meshes/april0_tag.dae" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://cnc_urdf/meshes/april0_Link.dae" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="april0_joint"
+    type="fixed">
+    <origin
+      xyz="0.935 0.008 0.42903"
+      rpy="0 0 -1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="april0_Link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="april1_Link">
+    <inertial>
+      <origin
+        xyz="-0.001 0.1 0.1"
+        rpy="0 0 0" />
+      <mass
+        value="0.624000000000001" />
+      <inertia
+        ixx="0.00416"
+        ixy="-6.57762049654477E-20"
+        ixz="-6.79966015867321E-20"
+        iyy="0.002080208"
+        iyz="-1.89551475486146E-19"
+        izz="0.002080208" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://cnc_urdf/meshes/april1_tag.dae" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://cnc_urdf/meshes/april1_Link.dae" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="april1_joint"
+    type="fixed">
+    <origin
+      xyz="1.0181 1.188 1.1081"
+      rpy="0 0 -1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="april1_Link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+</robot>
